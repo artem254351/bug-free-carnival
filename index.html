@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои ссылки</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#203a43">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { min-height: 100vh; background: radial-gradient(circle at top, #2c5364, #0f2027 60%); display: flex; align-items: center; justify-content: center; color: #fff; overflow: hidden; }
+
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 24px;
+      padding: 42px 32px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.35), transparent 40%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.25), transparent 45%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25), transparent 70%);
+      opacity: 0.35;
+      animation: liquidMove 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes liquidMove {
+      0% { transform: translateX(-30%) translateY(-10%); }
+      50% { transform: translateX(30%) translateY(10%); }
+      100% { transform: translateX(-30%) translateY(-10%); }
+    }
+
+    h1 { font-size: 1.9rem; margin-bottom: 8px; }
+    p { color: #d0d7de; margin-bottom: 28px; font-size: 0.95rem; }
+
+    .links { display: flex; flex-direction: column; gap: 14px; }
+    .links a {
+      position: relative;
+      text-decoration: none;
+      color: #fff;
+      padding: 14px;
+      border-radius: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      overflow: hidden;
+    }
+    .links a::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .links a:hover::after { opacity: 1; }
+    .links a:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+    .links a i { font-size: 1.2rem; }
+
+    .telegram { background: linear-gradient(135deg, #2aabee, #229ed9); }
+    .tiktok { background: linear-gradient(135deg, #000, #333); }
+    .instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .youtube { background: linear-gradient(135deg, #ff0000, #cc0000); }
+    .roblox { background: linear-gradient(135deg, #111, #444); }
+    .sora { background: linear-gradient(135deg, #7c3aed, #4f46e5); }
+
+    footer { margin-top: 24px; font-size: 0.8rem; color: #b6c2cc; }
+  </style>
+</head>
+
+<body>
+  <div class="card" id="card">
+    <h1>Мои ссылки</h1>
+    <p>Все мои соцсети в одном месте</p>
+
+    <div class="links">
+      <a class="telegram" href="https://t.me/artem254a" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>
+      <a class="tiktok" href="https://www.tiktok.com/@artem_shurok" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+      <a class="instagram" href="https://www.instagram.com/artiom45922" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+      <a class="youtube" href="https://youtube.com/channel/UCEZ7zTmlcVkQaqalYcnCaHA" target="_blank"><i class="fa-brands fa-youtube"></i> YouTube</a>
+      <a class="roblox" href="https://www.roblox.com/share?code=df25a150b0ceea4fbed640a173911db5&type=Profile" target="_blank"><i class="fa-solid fa-gamepad"></i> Roblox</a>
+      <a class="sora" href="https://sora.chatgpt.com/profile/artem254" target="_blank"><i class="fa-solid fa-wand-magic-sparkles"></i> Sora AI</a>
+    </div>
+
+    <footer>© 2026</footer>
+  </div>
+
+  <script>
+    const card = document.getElementById("card");
+    document.addEventListener("mousemove", (e) => {
+      const x = (window.innerWidth / 2 - e.clientX) / 25;
+      const y = (window.innerHeight / 2 - e.clientY) / 25;
+      card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+    document.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateY(0) rotateX(0)";
+    });
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(() => {
+        console.log('Service Worker зарегистрирован!');
+      });
+    }
+  </script>
+</body>
+</html>
